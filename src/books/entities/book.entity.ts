@@ -12,6 +12,8 @@ export class Book {
   description: string;
   @Column({ default: false })
   availability: boolean;
+  @Column()
+  price: number;
 
   @ManyToOne(() => User, { cascade: true, onDelete: 'CASCADE' })
   author: User;

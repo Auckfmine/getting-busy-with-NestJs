@@ -5,9 +5,11 @@ import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './books/entities/book.entity';
 import { UserModule } from './user/user.module';
+import { InvoiceModule } from './invoice/invoice.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
-  imports: [BooksModule, UserModule],
+  imports: [BooksModule, UserModule, InvoiceModule, OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
