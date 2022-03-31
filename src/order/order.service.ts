@@ -43,15 +43,15 @@ export class OrderService {
     return this.orderRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: number) {
+    return await this.orderRepository.findOne({ orderId: id });
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: number, updateOrderDto: UpdateOrderDto) {
+    return await this.orderRepository.save(updateOrderDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: number) {
+    return await this.orderRepository.delete({ orderId: id });
   }
 }

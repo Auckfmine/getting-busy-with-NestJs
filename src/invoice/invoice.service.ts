@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { UUIDVersion } from 'class-validator';
 import { randomUUID } from 'crypto';
 import { Order } from 'src/order/entities/order.entity';
 import { User } from 'src/user/entities/user.entity';
@@ -54,19 +53,32 @@ export class InvoiceService {
     }
   }
 
-  findAll() {
-    return `This action returns all invoice`;
+  async findAll() {
+    return await this.invoiceRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} invoice`;
+  async findOne(id: number) {
+    return this.invoiceRepository.findOneOrFail({ invoiceId: id });
+  }
+  async findOneByClient(clientId: number) {
+    try {
+      const client: User = await this.userRepository.findOneOrFail({
+        id: clientId,
+      });
+      return this.invoiceRepository.findOneOrFail({ client });
+    } catch (error) {
+      return new HttpException(
+        'error \n ' + error.message,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
     return `This action updates a #${id} invoice`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} invoice`;
+  async remove(id: number) {
+    return this.invoiceRepository.delete({ invoiceId: id });
   }
 }
