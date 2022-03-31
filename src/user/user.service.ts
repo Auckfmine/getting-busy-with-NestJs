@@ -40,6 +40,22 @@ export class UserService {
   findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
+
+  async findByEmail(email: string) {
+    try {
+      const user: User = await this.userRepository.findOne({
+        email: email,
+      });
+      console.log(user);
+
+      if (!user) {
+        return null;
+      }
+      return user;
+    } catch (error) {
+      return null;
+    }
+  }
   //findUserById
   async findOne(id: number) {
     try {
