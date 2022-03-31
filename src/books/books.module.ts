@@ -6,10 +6,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { booksProvider } from './books.providers';
 import { DatabaseModule } from 'src/database.module';
 import { userProviders } from 'src/user/user.providers';
+import { OrderProviders } from 'src/order/order.providers';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [BooksController],
-  providers: [...booksProvider, ...userProviders, BooksService],
+  providers: [
+    ...booksProvider,
+    ...userProviders,
+    ...OrderProviders,
+    BooksService,
+  ],
 })
 export class BooksModule {}

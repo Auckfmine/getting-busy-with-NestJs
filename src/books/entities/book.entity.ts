@@ -1,5 +1,12 @@
+import { Order } from 'src/order/entities/order.entity';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 @Entity()
 export class Book {
   @PrimaryGeneratedColumn()

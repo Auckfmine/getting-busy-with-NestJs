@@ -1,5 +1,12 @@
 import { Book } from 'src/books/entities/book.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
@@ -7,6 +14,7 @@ export class Order {
   @Column()
   quantity: number;
 
-  @OneToOne(() => Book)
+  @ManyToOne(() => Book, { eager: true })
+  @JoinColumn()
   book: Book;
 }

@@ -10,7 +10,7 @@ export class OrderService {
   constructor(
     @Inject('ORDER_REPOSITORY')
     private readonly orderRepository: Repository<Order>,
-    @Inject('BOOK_REPOSITORY')
+    @Inject('BOOKS_REPOSITORY')
     private readonly bookRepository: Repository<Book>,
   ) {}
 
@@ -20,6 +20,7 @@ export class OrderService {
       const book: Book = await this.bookRepository.findOne({
         id: createOrderDto.bookId,
       });
+      console.log(book);
 
       if (!book) {
         return new HttpException('book not found', HttpStatus.NOT_FOUND);
@@ -28,6 +29,7 @@ export class OrderService {
       const order: Order = new Order();
       order.book = book;
       order.quantity = createOrderDto.quantity;
+      console.log(order);
       return this.orderRepository.save(order);
     } catch (error) {
       return new HttpException(

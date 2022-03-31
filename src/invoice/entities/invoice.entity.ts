@@ -7,6 +7,7 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -28,5 +29,6 @@ export class Invoice {
   @ManyToOne(() => User)
   client: User;
   @ManyToMany(() => Order)
+  @JoinTable()
   orders: Order[];
 }
