@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -19,23 +20,7 @@ export class UserService {
   ) {}
   logger: Logger = new Logger();
   //create user
-  async create(createUserDto: CreateUserDto) {
-    try {
-      const exists: User = await this.userRepository.findOne({
-        email: createUserDto.email,
-      });
-      this.logger.log(exists);
-      if (exists) {
-        return new HttpException(
-          `user with email : ${exists.email} already exists`,
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-      return this.userRepository.save(createUserDto);
-    } catch (error) {
-      return new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
-  }
+
   //getAll users
   findAll(): Promise<User[]> {
     return this.userRepository.find();
